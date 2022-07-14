@@ -13,7 +13,8 @@
 🎬 시연영상
 동작구 in 둘레길 시연영상
 
-https://www.youtube.com/watch?v=JdEjWX5yALM
+[youtube](https://www.youtube.com/watch?v=JdEjWX5yALM
+), "youtube link")
 
 
 🎨 프로젝트 초안
