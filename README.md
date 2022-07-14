@@ -24,7 +24,12 @@
 
 
 🎨 프로젝트 초안
-디자인
+디자인(와이어프레임)
+![와이어프레임1](https://user-images.githubusercontent.com/108056051/178934627-f6aea94f-227c-4b04-9b71-012d92d46352.png)
+![와이어프레임2](https://user-images.githubusercontent.com/108056051/178934646-d05f98bf-dd87-4805-a3fe-21edd23b98e2.png)
+![와이어프레임3](https://user-images.githubusercontent.com/108056051/178934668-3494ff44-7a37-401e-83c0-2b8dc997f66f.png)
+![와이어프레임4](https://user-images.githubusercontent.com/108056051/178934680-3638ca5a-9670-4ddf-ade9-30842d5bb302.png)
+
 
 
 👨‍💻 프로젝트 기간
