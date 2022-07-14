@@ -38,9 +38,9 @@
 
 
 🔨 개발툴
-Server: AWS EC2 (Linux 2 AMI)
-Framework: Flask (Python)
-Database: MongoDB
-View : HTML5, CSS3, Javascript
-Design Tool (Figma)
+Server: AWS EC2 (Linux 2 AMI)  
+Framework: Flask (Python)  
+Database: MongoDB  
+View : HTML5, CSS3, Javascript  
+Design Tool (Figma)  
 Tool : Git, Notion
