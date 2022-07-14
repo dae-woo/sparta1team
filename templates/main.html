@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>동작구의 둘렛길</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logout {
+            text-align: right;
+            margin: 10px;
+        }
+
+        .assemble{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            show_namestar()
+        });
+
+        function todetail(num){
+            console.log(num)
+            $.ajax({
+                    type: "POST",
+                    url: "/api/detail",
+                    data: {num_give: num},
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            $.cookie('numtoken', response['token']);
+                            window.location.href = '/detail'
+                        } else {
+                            alert(response['msg'])
+                        }
+                    }
+                })
+        }
+
+        function show_namestar() {
+            $("#namestar").empty();
+
+            var Array = [{{first}},{{second}},{{third}},{{fourth}},{{fifth}},{{sixth}},{{seventh}},{{first_star}},{{second_star}},{{third_star}},{{fourth_star}},{{fifth_star}},{{sixth_star}},{{seventh_star}}];
+            for (let i = 0; i < 7; i++) {
+                temp_html =``
+                let count = Array[i]
+                let starpoint = Array[i+7].toFixed(2)
+                switch (count) {
+                    case 1 :
+                        temp_html = `<p class="text">[1코스] 고구동산 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(1)"><p class="totext text1">[1코스] 고구동산 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 2 :
+                        temp_html = `<p class="text">[2코스] 현충원 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(2)"><p class="totext text2">[2코스] 현충원 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 3 :
+                        temp_html = `<p class="text">[3코스] 한강나들 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(3)" ><p class="totext text3">[3코스] 한강나들 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 4 :
+                        temp_html = `<p class="text">[4코스] 노량진 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(4)"><p class="totext text4">[4코스] 노량진 길 상세 정보 </p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 5 :
+                        temp_html = `<p class="text">[5코스] 보라매 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(5)"><p class="totext text5">[5코스] 보라매 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 6 :
+                        temp_html = `<p class="text">[6코스] 동작마루 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(6)"><p class="totext text6">[6코스] 동작마루 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                        break;
+                    case 7 :
+                        temp_html = `<p class="text">[7코스] 까치산 길 </p><p class="text">평점 : ${starpoint} </p><div class="road road${count} border border-dark border border-5 rounded rounded-3" type="button" onclick="todetail(7)"><p class="totext text7">[7코스] 까치산 길 상세 정보 보기</p></div><br><br>`
+                        $("#namestar").append(temp_html);
+                }
+            }
+
+            temp_html = `<br>`
+            $("#namestar").append(temp_html);
+        }
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('로그아웃이 완료되었습니다.')
+            window.location.href = '/'
+        }
+
+        function send(){
+            let number = $("#number").val()
+            let star = $("#star").val()
+            $.ajax({
+                type: "POST",
+                url: "/api/test",
+                data: {number_give: number , star_give: star },
+                success: function (response) {
+                    alert(response['msg'])
+                }
+            })
+        }
+        function text(num){
+            $("#road${num}").append("${num}코스 상세정보")
+        }
+
+
+    </script>
+
+    <style>
+        .road {
+             background-size: cover;
+            background-position: center;
+            margin: 0% auto 1% auto ;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 75%;
+            height: 25%;
+        }
+        .road1 {
+            background-image: url("/static/1.jpg");
+        }
+
+        .road2 {
+            background-image: url("/static/2.jpg");
+        }
+
+        .road3 {
+            background-image: url("/static/3.jpg");
+        }
+
+        .road4 {
+            background-image: url("/static/4.jpg");
+        }
+
+        .road5 {
+            background-image: url("/static/5.jpg");
+        }
+
+        .road6 {
+            background-image: url("/static/6.jpg");
+        }
+
+        .road7 {
+            background-image: url("/static/7.jpg");
+        }
+
+        .totext {
+            color: black;
+            opacity: 0;
+            font-size: xxx-large;
+            font-weight: bolder;
+        }
+
+        .road1:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/1.jpg");
+        }
+
+        .road1:hover .text1 {
+            opacity: 1;
+        }
+
+        .road2:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/2.jpg");
+        }
+
+        .road2:hover .text2 {
+            opacity: 1;
+        }
+
+        .road3:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/3.jpg");
+        }
+
+        .road3:hover .text3 {
+            opacity: 1;
+        }
+
+        .road4:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/4.jpg");
+        }
+
+        .road4:hover .text4 {
+            opacity: 1;
+        }
+
+        .road5:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/5.jpg");
+        }
+
+        .road5:hover .text5 {
+            opacity: 1;
+        }
+
+        .road6:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/6.jpg");
+        }
+
+        .road6:hover .text6 {
+            opacity: 1;
+        }
+
+        .road7:hover {
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("/static/7.jpg");
+        }
+
+        .road7:hover .text7 {
+            opacity: 1;
+        }
+
+        .assemble{
+        text-align: center;
+        }
+        .text{
+            font-weight: bold;
+            color: black;
+            font-size: large;
+            margin: 0px;
+
+        }
+        *{
+            font-family: 'Jua', sans-serif;
+        }
+        .welcome{
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logout">
+    <p class="welcome"> {{nick}}님 둘레길 in 동작구에 오신걸 환영합니다.</p> <button type="button" class="btn btn-dark" onclick="logout()">로그아웃</button>
+    </div>
+
+<div class="assemble" id="namestar">
+</div>
+
+</body>
+
+</html>

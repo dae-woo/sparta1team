@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script>
+        function to_main() {
+            window.location.href="/main"
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            bodymake();
+            show_reviews();
+        });
+        function show_reviews() {
+    number ={{number}}
+    $('#reviews').empty()
+    $.ajax({
+        type: 'POST',
+        url: '/reviews/get',
+        data: {number_give: number},
+
+        success: function (response) {
+            let rows = response['reviews']
+            for (let i = 0; i < rows.length; i++) {
+                let title = rows[i]['title']
+                let star = rows[i]['star']
+                let image = rows[i]['image']
+                let comment = rows[i]['comment']
+                let star_image = '⭐'.repeat(star)
+
+                if (image&&(image.slice(-4,image.length)==".jpg"||image.slice(-4,image.length)=="jpeg"||image.slice(-4,image.length)==".png"||image.slice(-4,image.length)==".gif")) {
+                    let temp_html = `<div class="col">
+                                    <div class="card h-100">
+                                        <img src="${image}"
+                                             class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <p class="card-text">${title}</p>
+                                                <p>${star_image}</p>
+                                                <p class="mycomment">${comment}</p>
+                                            </div>
+                                    </div>
+                                </div>
+                              <br>
+                              <br>`
+
+                    $('#review_box').append(temp_html)
+
+                }
+            }
+
+             for (let i = 0; i < rows.length; i++) {
+                let title = rows[i]['title']
+                let star = rows[i]['star']
+                let image = rows[i]['image']
+                let comment = rows[i]['comment']
+                let star_image = '⭐'.repeat(star)
+
+                if (!image||!(image.slice(-4,image.length)==".jpg"||image.slice(-4,image.length)=="jpeg"||image.slice(-4,image.length)==".png"||image.slice(-4,image.length)==".gif")) {
+                    image = "/static/no_image.gif";
+
+                    let temp_html = `<div class="col">
+                                    <div class="card h-100">
+                                        <img src="${image}"
+                                             class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <p class="card-text">${title}</p>
+                                                <p>${star_image}</p>
+                                                <p class="mycomment">${comment}</p>
+                                            </div>
+                                    </div>
+                                </div>
+                              <br>
+                              <br>`
+
+                    $('#review_box').append(temp_html)
+
+                }
+            }
+        }
+    });
+}
+
+        function close_box() {
+            $('#review_box').hide()
+        }
+
+        function bodymake() {
+            $("body").empty();
+            switch ({{number}}) {
+                case 1 :  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">자연이 살아 숨쉬는 공간, 고구동산길</h3>
+                                    <img src="/static/1_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 쾌적하게 정비된 배수지공원은 지하철 9호선 노들역과 연결되어 있어 만남의 장소로 일익을 담당합니다. <br>배수지 공원에서 출발해 고구동산 정상, 서달산 잣나무길과 서달산 생태다리, 상도출입문까지 이어지는 1코스 고구동산길을 걷노라면 벚나무와 잣나무 등 숨 쉬기만 해도 즐거워지는 동작의 자연을 감상 할 수 있습니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/1_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3>
+                            <dl class="dl-horizontal"
+                                style="display: block; margin-left: auto; margin-right: auto;"/>
+
+                                <dt><i class="fa fa-chevron-circle-right"></i>➡소요시간</dt>
+                                <dd>약 1시간 (3.2㎞)</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i>➡난이도</dt>
+                                <dd>하</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i>➡테마주제</dt>
+                                <dd><strong class="pointColor">생(生)</strong>을 테마로 자연과의 동화를 강조한 길</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i><small>➡출발기점 정보</small></dt>
+                                <dd>동작충효길 탐방안내센터<br>
+                                    지하철9호선 노들역 2번 출구 앞<br>
+                                    버스 : 501,506,750A, 750B, 752</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i><small>➡도착지점 정보</small></dt>
+                                <dd>동작소방서 백운 119안전센터</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i>➡편의시설</dt>
+                                <dd>화장실 : 9호선 노들역사 내, 고구동산 트랙 옆, 달마사앞, 서달산 생태다리 주변<br>
+                                    식수 : 달마약수터<br>
+                                    매점 : 중앙대 후문 부근 편의점 위치함</dd>
+                                <dt><i class="fa fa-chevron-circle-right"></i>➡여행TIP</dt>
+                                <dd>지하철9호선 노들역 2번 출구로 나오면 동작충효길의 시발점인 안내센터가 보인다. 안내센터 앞에 설치된 종합안내판을 보고, 현위치를 파악한 다음, 고구동산길로 출발하면 된다. 고구동산길을 가기 전 안내센터에 비치된 안내지도책자를 가지고, 이동하면 코스를 좀 더 쉽게 찾을 수 있다. 고구동산길 중간지점에는 중앙대학교 후문이 있으며, 후문근처의 편의점에서 간식과 물을 구입할 수 있다. 또한, 중앙대 후문을 지나면 서달산을 진입할 수 있으며, 서달산에는 피톤치드숲, 숲속도서관, 숲속유치원, 야생초화원 등 볼거리가 가득하다. 서달산 전망대에서 바라보는 한강의 굽이치는 모습은 과히 백만불짜리 광경이라 할 수 있다.</dd>
+                            </dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected value="0"> -선택- </option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                           $("body").append(temp_html)
+                           break;
+
+                case 2 :  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">충(忠)의 정신을 만나는 공간, 현충원길</h3>
+                                    <img src="/static/2_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 현충원길은 추모의 공간이자 추억을 공유하는 공간입니다. 현충원 내부순례길의 호국지장사, 대통령 묘역 등을 둘러보고, 추모의 마음을 글로 담아 현충원 담장길에 조성되어 있는 메모 리얼게이트에 꽂아둘 수 있습니다. <br>또한, 효의 정신을 형상화한 업어주기 조형물과 효도전화의자도 만날 수 있는 충(忠)과 효(孝)가 함께하는 공간, 2코스 현충원길입니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/2_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3>
+                            <dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 50분 (2.6㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>하</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">충(忠)</strong>을 테마로 충절을 기리는 추모의 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>현충원 상도출입문<br>
+							(동작소방서 백운119안전센터로    부터 150m 거리)<br>
+							버스 : 752, 동작14</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>지하철 동작역 3번 출구</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  4호선 동작역사내, 국립현충원내 장군묘역주변<br>
+							식수 : 학수약수터, 녹천약수터<br>
+							매점 :  국립현충원내 장군묘역 부근 매점 위치함</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>2코스는 국립현충원 상도출입문에서 출발한다. 상도출입문에서는 국립현충원 내부길과 외부담장길이 나누어져 있으며, 이용자는 원하는 길을 선택하여 이용할 수 있다. 국립현충원 내부길은 호국지장사, 박정희대통령묘소, 장군묘역 등을 지나가며, 국립현충원의 아름다운 자연경관을 만끽할 수 있다.
+						국립현충원 외부담장길에는 메모리얼게이트가 조성되어 있어 국립현충원에 잠들어있는 호국영령을 추모하면서 나라사랑정신을 되새길 수 있으며, 곳곳에 설치된 효도전화의자, 업어주기 조형물을 통해서 부모님에 대한 효의 정신을 느낄 수 있다. </dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                           $("body").append(temp_html)
+                           break;
+                case 3 :  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">지극한 효심이 함께 하는 공간, 한강나들길</h3>
+                                    <img src="/static/3_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 한강나들길은 동작역부터 노량진역을 잇는 구간으로 유구히 흐르는 한강의 풍경을 바라보면서 산책할 수 있습니다. <br>한강의 절경을 감상할 수 있는 효사정과 용양봉저정에 들르면 효를 화두로 한 감동적인 이야기를 만들 수 있습니다. 효심(孝心)을 테마로 꾸민 한강나들길을 거닐면서 부모님께 안부전화를 드려보는 것도 좋습니다..</br>
+                                    </h4>
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/3_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3>
+                            <dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 1시간 20분 (4.7㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>하</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">효(孝)</strong>를 테마로 가족과 함께 걷는 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>지하철 4호선 동작역 3번 출구<br>
+							버스 : 360, 362, 363, 462, 640, 642, 752, 5524, 6411</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>지하철    1호선 노량진역 1번 출구</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  4호선 동작역사 내, 1호선 노량진역사 내, 배수지공원 내, 사육신공원 내<br>
+							식수 : - <br>
+							매점 :  흑석역, 노들역, 노량진역 주변 편의점</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>3코스는 동작역을    출발하여 한강수변길을 따라    한강의 경치를 만끽할 수 있으며, 한강을    지나 효사정과 용양봉저정에 이르면 옛선인들의 부모님에 대한 효심을 느낄 수 있다. <br>	배수지공원을 지나 사육신공원에 이르면 최근에 지어진 박물관에서    사육신공원에 대한 모든 정보를 만날 수 있다.<br>
+						노량진역 주변의 학원가에서는 가지가지 길거리음식이 판매되고 있어 주머니가 얇은 수험생들에게 인기가 많다.</dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                    $("body").append(temp_html)
+                           break;
+                case 4 :  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">따뜻한 정을 느낄 수 있는 공간, 노량진길</h3>
+                                    <img src="/static/4_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 노량진역에서 시작해 노량진수산시장, 노량진근린공원, 용마산을 지나 신대방삼거리역으로 이어지는 노량진길은 활기가 넘칩니다. <br>국내 최대의 수산시장이자 사람 냄새 물씬 풍기는 노량진수산시장과 수험생들의 열띤 학구열이 느껴지는 학원가에서는 일상의 건강한 박동소리를 들을 수 있습니다. 노량진근린공원 내에 있는 견우와 직녀교는 남녀의 아름답고도 슬픈 사랑 이야기를, 용마산에서는 용에 관한 설화를 만날 수 있습니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/4_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3>
+                           <dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 1시간 (3.4㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>하</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">정(情)</strong>을 테마로 나눔의 정을 느낄 수 있는 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>지하철    1호선 노량진역 1번 출구, 지하철    9호선 노량진역 2번 출구<br>
+							버스 : 150, 152, 360, 462, 500, 504, 507, 605, 640, 751, 5516, 5517, 5531, 5535, 5536, 6211, 6411, 9408, 동작01,  동작02, 동작03, 동작08, 동작11, 동작13</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>지하철    7호선 신대방삼거리역</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  노량진근린공원    내, 신대방삼거리역사    내<br>
+							식수 : - <br>
+							매점 :  노량진역, 신대방삼거리역,    노량진근린공원 주변 편의점</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>4코스는 노량진역을    출발하여 노량진수산시장을 거쳐간다.
+						노량진수산시장에    들려 신선한 회를 맛볼 수 있으며, 생동감    넘치는 활어도 볼 수 있다.
+						노량진    수산시장을 나오면 시설녹지에 무궁화길이 조성되어 있어  나라사랑의    마음도 느낄 수 있다.
+						또한, 노량진근린공원 내 무장애산책길은 서울시 최초로 장애인, 노약자가 휠체어를 타고 산책할 수 있도록 만든 공간이다.</dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                            $("body").append(temp_html)
+                            break;
+
+                case 5 :  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">문화로 교감하는 소통의 공간, 보라매길</h3>
+                                    <img src="/static/5_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 신대방삼거리역에서 성대시장을 지나 보라매공원을 거쳐 보라매역으로 이어지는 보라매길은 ‘통(通)’을 테마로 하여 문화를 교감하고 소통하는 공간입니다. 성대시장을 지나면서 서민들의 애환 섞인 삶의 현장을 느낄 수 있습니다. <br>보라매공원에는 어린이놀이터, 피크닉장, 청소년수련관, 동작구민체육센터, 노인복지관 등의 시설이 갖추어져 있어 남녀노소 다양한 계층에서 문화활동을 교감하고, 소통할 수 잇는 역할을 충분히 해내고 있습니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/5_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3><dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 50분 (2.7㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>하</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">통(通)</strong>의 테마인 문화로 교감하고 소통하는 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>지하철 7호선 보라매역 1번 출구<br>
+						버스 : 150, 505,  5531, 5534, 5536, 5623, 5633,  M5609,  동작05-1</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>지하철 7호선 보라매역 2번 출구</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  보라매공원 내, 신대방삼거리역사 내<br>
+							식수 : - <br>
+							매점 :  보라매공원, 신대방삼거리역 주변 편의점</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>5코스는 신대방삼거리역을 출발하여 보라매공원을 거쳐가는 코스이다.
+						보라매병원뒤 산책로는 병원이용객들이 자주찾는 힐링과 치유의 공간이다.
+						보라매공원의 다양한 문화시설을 이용할 수 있다.</dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                    $("body").append(temp_html)
+                           break;
+                case 6:  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">우애를 돈독하게 다지는 공간, 동작마루길</h3>
+                                    <img src="/static/6_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 신대방삼거리역에서 출발해 국사봉 정상, 상도근린공원을 지나 살피재를 넘어 숭실대입구역을 지나는 동작마루길은 형제와 친구 간의 우애를 돈독하게 다질 수 있는 공간입니다. 특히, 양녕대군 이제 묘역을 지나 국사봉 정상에 오르면 국사와 동생 세종대왕을 걱정했던 양녕대군의 마음이 가슴 깊숙이 전해집니다. 또한, 숭실대학교 아래 교차로에서 관악구 봉천동으로 넘어가는 고개인 살피재는 옛날 이곳에 수목이 울창해 도둑이 많이 출몰하여, 이 재를 넘기 전에 사람들이 ‘살펴서 가라’고 하여 이름 붙여진 곳으로, 그 이름에서 이웃을 걱정하고 보살피는 끈끈한 사랑이 물씬 느껴집니다. 국사봉 등산로 곳곳에 숲속문고, 효도장기의자, 숲속그네 등을 조성해 친구와 연인, 가족 단위로 재미있고 즐겁게 걸을 수 있도록 꾸몄습니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/6_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3>
+                            <dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 1시간 20분 (4.8㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>-</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">애(愛)</strong>를    테마로 형제, 친구와의    우애를 돈독히 하는 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>지하철    7호선 신대방삼거리역 1번 출구<br>
+ 							버스 : 153, 461, 753, 5536, 6513, 6514, 6516,  동작03</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>동작소방서    백운 119안전센터</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  상도근린공원    관리사무소 주변, 봉현배수지 주변, 숭실대입구역사 내<br>
+							식수 : 국사봉약수터<br>
+							매점 :  신대방삼거리역, 숭실대입구역 주변    편의점</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>6코스는 신대방삼거리역을    출발하여 성대시장, 국사봉정상, 숭실대학교를 지나는 코스로 시가지길과 산길이 공존하는 지역이다.
+							국사봉 정상에서는 동작구를 한눈에 바라볼 수 있는 조망대가 있으며, 내려오면 생태연못이 아기자기하게 만들어져 볼거리를 제공하고 있다.
+							숭실대학교    안에는 한국기독박물관이 있으며, 국보급    유물도 꽤많이    전시되어 있어 지나는 길에 이용하는것도 좋을 듯 싶다.</dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                    $("body").append(temp_html)
+                           break;
+                    case 7:  temp_html = `<div class="mytitle">
+                                               <h1>{{nick}}님을 위한
+                                               동작구 in 둘레길</h1>
+                                       <button onclick="to_main()">메인으로
+                            </button>
+                        </div>
+                        <div class="member-box6 container-fluid mb30">
+                            <div class="row">
+                                <div class="col-md-2 tac"><i class="fa fa-random fa-xg" aria-hidden="true"></i></div>
+                                <div class="col-md-7">
+                                    <h3 class="mt0">생태 감성을 체험할 수 있는 공간, 까치산길</h3>
+                                    <img src="/static/7_1.gif"
+                                         style="float: left; margin-right: 20px; margin-bottom: 10px;  width:700px; height:300px;">
+                                    <h4> 충효길의 마지막 코스인 까치산길은 백운고개(사당이고개) 생태다리에서 시작해 까치산근린공원을 지나 사당역에 이릅니다. 까치산길은 동작의 남부녹지축을 연결하는 주요 구간으로 산림자원이 풍부한 지역입니다. <br>동작구에서 생태환경이 가장 훌륭한 코스답게 잘 보존된 까치산길을 걷노라면 피톤치드로 건강해지는 기분을 맛 볼 수 있을 것입니다.</br>
+                                    </h4>
+
+                                </div>
+                                </div>
+                                    <div>
+                                            <img src="/static/7_2.gif"
+                                                 style="display: block; margin-left: auto; margin-right: auto; width:1000px; height:500px;"/>
+                                    </div>
+                        <h3><dl class="dl-horizontal">
+						<dt><i class="fa fa-chevron-circle-right"></i>소요시간</dt>
+						<dd>약 1시간 (3.6㎞)</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>난이도</dt>
+						<dd>하</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>테마주제</dt>
+						<dd><strong class="pointColor">보(保)</strong>를 테마로 자연보전의 가치를 느낄 수 있는 길</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>출발기점 정보</small></dt>
+						<dd>백운고개 생태다리(동작소방서 백운119안전센터로 부터 150m거리)<br>
+ 							버스 : 752, 동작14</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i><small>도착지점 정보</small></dt>
+						<dd>지하철 2호선 사당역 7번 출구</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>편의시설</dt>
+						<dd>화장실 :  까치산근린공원 관리사무소 주변, 사당역사 내<br>
+							식수 : -<br>
+							매점 :  까치산입구, 사당역 주변 편의점</dd>
+						<dt><i class="fa fa-chevron-circle-right"></i>여행TIP</dt>
+						<dd>7코스는 동작구에서 자연생태환경이 가장 좋은 산책로로 남부순환로 관악까치 생태다리가 연결되어 있어 관악산까지 쉽게 이용할 수 있는 코스이다. <br>
+						7코스 주변에는 동래정씨 임당공파묘역과 효간공이정영묘역 등 문화재가 있으며, 문화재와 연관된 옛이야기가 전해지는 곳이다.</dd>
+					</dl>
+                        </h3>
+                            <div class="mypost" >
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="title" placeholder="name@example.com">
+                                    <label for="floatingInput">리뷰 제목</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">별점</label>
+                                    <select class="form-select" id="star">
+                                        <option selected>-- 선택하기 --</option>
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                                      style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">코멘트</label>
+                                </div>
+
+                                <label for="basic-url" class="form-label">이미지 URL</label>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text" id="basic-url">https://example.com/users/</span>
+                                  <input type="text" class="form-control" id="image" aria-describedby="basic-addon3">
+                                </div>
+                                </div>
+                                <div class="mybtns">
+                                    <button onclick="review_order()" type="button" class="btn btn-dark">기록하기</button>
+                                    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+                                </div>
+                            </div>
+
+                            <div id="review_box" class="mycards">
+                            </div>`
+                        $("body").append(temp_html)
+                           break;
+            }
+
+        }
+                function review_order() {
+            let number = {{number}};
+            let title = $('#title').val();
+            let star = $('#star').val();
+            let image = $('#image').val();
+            let comment = $('#comment').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/reviews/post',
+                data: {number_give: number,
+                       title_give: title,
+                       star_give: star,
+                       image_give: image,
+                       comment_give: comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+    </script>
+    <title>동작구 in 둘레길 상세페이지</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mytitle {
+            width: 100%;
+            height: 250px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/142497/pexels-photo-142497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-position: center;
+            background-size: cover;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mytitle > button {
+            width: 200px;
+            height: 50px;
+
+            background-color: transparent;
+            color: white;
+
+            border-radius: 50px;
+            border: 1px solid white;
+
+            margin-top: 10px;
+        }
+
+        .mytitle > button:hover {
+            border: 2px solid white;
+        }
+
+        .mycomment {
+            color: gray;
+        }
+
+        .mycards {
+            margin: 20px auto 0px auto;
+            width: 95%;
+            max-width: 1200px;
+        }
+
+        .mypost {
+            width: 95%;
+            max-width: 500px;
+            margin: 20px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
+        }
+
+        .mybtns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 20px;
+        }
+
+        .mybtns > button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+</body>
+
+</html>
